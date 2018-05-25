@@ -1,6 +1,7 @@
 <?php
 namespace Chatbox\GithubIssues\Http\Action;
 use Chatbox\GithubIssues\Service\GithubService;
+use GuzzleHttp\Exception\ClientException;
 
 /**
  * Created by PhpStorm.
@@ -23,10 +24,19 @@ class IssueImageAction {
 
 
     public function __invoke($username,$reponame,$issueno) {
-        $result = $this->github->issue($username,$reponame,$issueno);
-        dd($result);
-
-
+        try{
+            $result = $this->github->issue($username,$reponame,$issueno);
+        }catch (ClientException $e){
+            return  response()->file(app()->basePath("resources/assets/images/default.png"));
+        }
+        if(is_array($result)){
+            if(array_get($result,"state") === "open"){
+                return  response()->file(app()->basePath("resources/assets/images/open.png"));
+            }else if(array_get($result,"state") === "closed"){
+                return  response()->file(app()->basePath("resources/assets/images/close.png"));
+            }
+        }
+        return  response()->file(app()->basePath("resources/assets/images/default.png"));
     }
 
 
