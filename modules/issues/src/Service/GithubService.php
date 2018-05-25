@@ -44,6 +44,5 @@ class GithubService {
         }
         return null;
     }
-
 }
 
