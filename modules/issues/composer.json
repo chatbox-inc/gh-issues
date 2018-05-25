@@ -1,0 +1,17 @@
+{
+    "name": "chatbox-inc/gh-issues",
+    "authors": [
+        {
+            "name": "t.goto",
+            "email": "t.goto@chatbox-inc.com"
+        }
+    ],
+    "autoload":{
+        "psr-4": {
+            "Chatbox\\GithubIssues\\": "./src/"
+        }
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^6.3"
+    }
+}
